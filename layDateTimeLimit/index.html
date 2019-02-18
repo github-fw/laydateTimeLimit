@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="laydate/laydate.js"></script>
+    <style>
+        .box{
+            display: flex;
+            justify-content: center;
+        }
+        .my-input{
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <input class="my-input" type="text" id="beginTime">
+        <input class="my-input" type="text" id="endTime">
+    </div>
+</body>
+
+</html>
+<script>
+    var start_new = laydate.render({
+        elem: '#beginTime',
+        min: '1900-1-1',
+        max: '2020-01-01',
+        value: '2018-01-01',
+        trigger: 'click', //采用click弹出
+        done: function (value, date, endDate) {
+            end_new.config.min = {
+                year: date.year,
+                month: date.month - 1,
+                date: date.date,
+                hours: date.hours,
+                minutes: date.minutes,
+                seconds: date.seconds
+            }; //开始日选好后，重置结束日的最小日期
+        }
+    });
+    var end_new = laydate.render({
+        elem: '#endTime',
+        min: '2018-01-01',
+        max: '2099-6-16',
+        value: '2020-01-01',
+        done: function (value, date, endDate) {
+            start_new.config.max = {
+                year: date.year,
+                month: date.month - 1,
+                date: date.date,
+                hours: date.hours,
+                minutes: date.minutes,
+                seconds: date.seconds
+            }; //结束日选好后，重置开始日的最大日期
+        }
+    });
+</script>
